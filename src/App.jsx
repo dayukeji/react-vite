@@ -1,41 +1,23 @@
 import React, { useEffect, useState, useCallback } from 'react';
-
-function Child({ callback }) {
-  useEffect(() => {
-    callback();
-  }, [callback]);
-
-  return <div>子组件</div>;
-}
+import { ConfigProvider } from 'zarm';
+import zhCN from 'zarm/lib/config-provider/locale/zh_CN';
+import 'zarm/dist/zarm.css';
+import routes from './router';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 function App() {
-  const [name, setName] = useState('');
-  const [phone, setPhone] = useState('');
-  const [kw, setKw] = useState('');
-
-  const callback = () => {
-    console.log('我是callback');
-  };
-
   return (
-    <div className="App">
-      <input
-        onChange={(e) => setName(e.target.value)}
-        type="text"
-        placeholder="请输入姓名"
-      />
-      <input
-        onChange={(e) => setPhone(e.target.value)}
-        type="text"
-        placeholder="请输入电话"
-      />
-      <input
-        onChange={(e) => setKw(e.target.value)}
-        type="text"
-        placeholder="请输入关键词"
-      />
-      <Child callback={callback} />
-    </div>
+    <ConfigProvider locale={zhCN}>
+      <BrowserRouter>
+        <Switch>
+          {routes.map((route) => (
+            <Route key={route.path} path={route.path}>
+              <route.component />
+            </Route>
+          ))}
+        </Switch>
+      </BrowserRouter>
+    </ConfigProvider>
   );
 }
 

@@ -1,5 +1,12 @@
 import React from 'react';
+import { Button } from 'zarm';
 
-export default Index = () => {
-  return <div>About</div>;
+const About = () => {
+  return (
+    <div>
+      <Button theme="primary">Hello!</Button>
+    </div>
+  );
 };
+
+export default About;
